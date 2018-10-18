@@ -1,0 +1,29 @@
+<h2>Written by {{author}}</h2>
+  <h1>{{article.title}}</h1> 
+  {{article.createdAt}}
+ {{article.body}}
+  <hr>
+
+    
+      <a class="btn btn-default" href='/article/edit/{{article._id}}'> Edit </a>
+      <a class="btn btn-danger delete-article"  href='#' data-id={{article._id}}> Delete</a>
+      
+    <script>
+$(document).ready(function(){
+    $('.delete-article').on('click', function(e){
+      $target = $(e.target);
+      const id = $target.attr(data-id);
+      $.ajax({
+        type:'DELETE',
+        url: '/article/'+id,
+        success: function(response){
+          alert('Deleting Article');
+          window.location.href='/';
+        },
+        error: function(err){
+          console.log(err);
+        }
+      });
+    });
+  });
+</script>

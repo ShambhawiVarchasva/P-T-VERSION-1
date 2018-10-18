@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <style>
+    #map{
+      height:400px;
+      width:100%;
+    }
+  </style>
+
+	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
+  <link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="/css/bootstrap.css" >
+	<link rel="stylesheet" href="/css/style.css" >
+  <link rel="stylesheet" href="/css/particle.css">
+
+	<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZsIfRp6sROmNHWCDvMbpaP053SxGqhrw&callback=initMap">
+</script>
+
+  <script>
+    function initMap(){
+      // Map options
+      var options = {
+        zoom:8,
+        center:{lat:26.8630,lng: 75.8106}
+      }
+
+      // New map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      // Listen for click on map
+      google.maps.event.addListener(map, 'click', function(event){
+        // Add marker
+        addMarker({coords:event.latLng});
+      });
+
+      /*
+      // Add marker
+      var marker = new google.maps.Marker({
+        position:{lat:42.4668,lng:-70.9495},
+        map:map,
+        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+      });
+
+      var infoWindow = new google.maps.InfoWindow({
+        content:'<h1>Lynn MA</h1>'
+      });
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker);
+      });
+      */
+
+      // Array of markers
+      var markers = [
+        {
+          coords:{lat:26.8630,lng:75.8106},
+          iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          content:'<h3>MNIT</h3>'
+        },
+        
+      ];
+
+      // Loop through markers
+      for(var i = 0;i < markers.length;i++){
+        // Add marker
+        addMarker(markers[i]);
+      }
+
+      // Add Marker Function
+      function addMarker(props){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+          //icon:props.iconImage
+        });
+
+        // Check for customicon
+        if(props.iconImage){
+          // Set icon image
+          marker.setIcon(props.iconImage);
+        }
+
+        // Check content
+        if(props.content){
+          var infoWindow = new google.maps.InfoWindow({
+            content:props.content
+          });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+    }
+  </script>
+
+	<script src="/js/worker.js"></script>
+  <script src="/js/delete.js"></script>
+<!--<script>
+  const publicVapidKey='BJF7EE3FT4REMaWVoDXgjiKIBM17XcNkIifyn0S5jx6fJaX5ccZTMt_aZS1mWf0WMg2pga8lKKF1SQrspM8B6vk';
+
+// Check for service worker
+if ("serviceWorker" in navigator) {
+  send().catch(err => console.error(err));
+}
+
+// Register SW, Register Push, Send Push
+async function send() {
+  // Register Service Worker
+  console.log("Registering service worker...");
+  const register = await navigator.serviceWorker.register("/js/worker.js", {
+    scope: "/"
+  });
+  console.log("Service Worker Registered...");
+
+  // Register Push
+  console.log("Registering Push...");
+  const subscription = await register.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+  });
+  console.log("Push Registered...");
+
+  // Send Push Notification
+  console.log("Sending Push...");
+  await fetch("/subscribe", {
+    method: "POST",
+    body: JSON.stringify(subscription),
+    headers: {
+      "content-type": "application/json"
+    }
+  });
+  console.log("Push Sent...");
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+</script>-->
+</head>
+<body>
+  <!--Particle js-->
+  
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <script>
+    particlesJS.load('particles-js', 'particles.json', function(){
+      console.log('particles.json loaded...');
+    });
+  </script>
+<!--Particle js ended-->
+
+	<div class="container">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">Glozzom</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about" class="nav-link">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a href="/instituteprofile" class="nav-link">Institute Profile</a>
+          </li>
+          <li class="nav-item">
+            <a href="/company" class="nav-link">Company</a>
+          </li>
+          <li class="nav-item">
+            <a href="/contact" class="nav-link">Contact</a>
+          </li>
+          {{#if user}}
+          
+          {{else}}
+                 <li class="nav-item">
+            
+            <a href="/users/login" class="nav-link">Login</a>
+          </li>
+                 <li class="nav-item">
+            <a href="/users/cregister" class="nav-link">Company Register</a>
+          </li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+     
+       
+      <div class="row">
+        <div class="col-lg-12">
+          {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+          {{/if}}
+
+          {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+          {{/if}}
+
+          {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+          {{/if}}
+          
+          {{{body}}}
+        </div>
+
+        
+      </div>
+
+     <!-- <footer class="footer">
+        <p>&copy; 2015 LoginApp, Inc.</p>
+      </footer>-->
+
+    </div> <!-- /container -->
+
+<!--<div id="map"></div>-->
+
+
+		
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+
